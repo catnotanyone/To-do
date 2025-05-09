@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ToDo List</title>
+  <style>
+    /* 1. Root Variables */
+    :root {
+        --mui-primary: #6200ee;
+        --mui-secondary: #03dac6;
+        --mui-bg: #f0f0f9;
+        --mui-surface: #f2f2f7;
+        --mui-text: #1c1c1e;
+        --mui-radius: 12px;
+        --mui-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        --mui-transition: 0.2s ease;
+        --mui-font: 'Roboto', sans-serif;
+    }
+
+    [data-theme="dark"] {
+        --mui-bg: #121212;
+        --mui-surface: #1e1e1e;
+        --mui-text: #e0e0e0;
+        --mui-shadow: 0 2px 8px rgba(255, 255, 255, 0.05);
+    }
+
+    /* 2. Global Styles */
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        font-family: var(--mui-font);
+        transition: var(--mui-transition);
+    }
+
+    body {
+        background: var(--mui-bg);
+        color: var(--mui-text);
+        font-family: var(--mui-font);
+        line-height: 1.6;
+        font-size: 16px;
+        padding: 0;
+        margin: 0;
+        min-height: 100vh;
+        transition: var(--mui-transition);
+    }
+
+    /* 3. Components */
+    .flex-between {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    /* Navbar */
+    .mui-navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 6px 24px;
+        background: var(--mui-surface);
+        box-shadow: var(--mui-shadow);
+    }
+
+    /* Container */
+    .mui-container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 24px;
+        background: var(--mui-bg);
+    }
+
+    /* Card */
+    .mui-card {
+        background: var(--mui-surface);
+        border-radius: var(--mui-radius);
+        box-shadow: var(--mui-shadow);
+        padding: 16px 20px;
+        margin: 16px 0;
+        transition: var(--mui-transition);
+    }
+
+    .mui-card:hover {
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .flex-row {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .gap-10 {
+        gap: 10px;
+    }
+
+    /* Button */
+    .mui-btn {
+        display: inline-block;
+        padding: 10px 20px;
+        font-size: 15px;
+        font-weight: 500;
+        color: white;
+        background: var(--mui-primary);
+        border: none;
+        border-radius: var(--mui-radius);
+        cursor: pointer;
+        transition: var(--mui-transition);
+    }
+
+    .mui-btn:hover {
+        background: #3700b3;
+    }
+
+    .mui-btn:active {
+        transform: scale(0.98);
+    }
+
+    /* Small Danger Button */
+    .mui-btn-small {
+        padding: 6px 12px;
+        font-size: 13px;
+        border-radius: calc(var(--mui-radius) / 1.5);
+    }
+
+    /* Danger Button */
+    .mui-btn-danger {
+        color: white;
+        background: #d32f2f;
+    }
+
+    .mui-btn-danger:hover {
+        background: #b71c1c;
+    }
+
+    /* Input */
+    .mui-input {
+        width: 100%;
+        padding: 12px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: var(--mui-radius);
+        background: transparent;
+        color: var(--mui-text);
+        outline: none;
+        transition: var(--mui-transition);
+    }
+
+    .mui-input:focus {
+        border-color: var(--mui-primary);
+        box-shadow: 0 0 0 2px rgba(98, 0, 238, 0.1);
+    }
+
+    /* List */
+    .mui-list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        background: var(--mui-surface);
+        border-radius: var(--mui-radius);
+        overflow: hidden;
+    }
+
+    /* List Item */
+    .mui-item {
+        padding: 12px 16px;
+        font-size: 16px;
+        color: var(--mui-text);
+        cursor: pointer;
+        transition: background-color var(--mui-transition);
+    }
+
+    .mui-item:not(:last-child) {
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    }
+
+    [data-theme="dark"] .mui-item:not(:last-child) {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .mui-item:hover {
+        background: rgba(0, 0, 0, 0.05);
+    }
+
+    [data-theme="dark"] .mui-item:hover {
+        background: rgba(255, 255, 255, 0.1);
+    }
+
+    /* Toggle Switch */
+    .mui-switch {
+        position: relative;
+        width: 50px;
+        height: 28px;
+        display: inline-block;
+    }
+
+    .mui-switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+
+    .mui-slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #ccc;
+        transition: var(--mui-transition);
+        border-radius: 28px;
+    }
+
+    .mui-slider:before {
+        position: absolute;
+        content: "";
+        height: 22px;
+        width: 22px;
+        left: 3px;
+        top: 3px;
+        background-color: white;
+        transition: var(--mui-transition);
+        border-radius: 50%;
+    }
+
+    .mui-switch input:checked+.mui-slider {
+        background-color: var(--mui-primary);
+    }
+
+    .mui-switch input:checked+.mui-slider:before {
+        transform: translateX(22px);
+    }
+
+    /* Typography */
+    h1, h2, h3, h4 {
+        font-weight: 500;
+        margin: 12px 0;
+        color: var(--mui-text);
+    }
+
+    .completed {
+      text-decoration: line-through;
+      opacity: 0.6;
+    }
+
+    /* Utilities */
+    .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+    }
+
+    .hidden {
+        display: none;
+    }
+
+    .todo-actions {
+        display: flex;
+        gap: 8px;
+    }
+
+    .empty-state {
+        text-align: center;
+        padding: 24px;
+        color: #888;
+    }
+
+    .filter-container {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 12px;
+        gap: 10px;
+    }
+
+    .filter-btn {
+        padding: 6px 12px;
+        background: transparent;
+        border: 1px solid var(--mui-primary);
+        color: var(--mui-primary);
+        border-radius: var(--mui-radius);
+        cursor: pointer;
+        transition: var(--mui-transition);
+    }
+
+    .filter-btn.active {
+        background: var(--mui-primary);
+        color: white;
+    }
+  </style>
+</head>
+
+<body>
+  <header class="mui-navbar">
+    <h1>ToDo List</h1>
+    <!-- Dark mode toggle -->
+    <label class="mui-switch">
+      <input type="checkbox" id="themeToggle">
+      <span class="mui-slider"></span>
+      <span class="sr-only">Toggle Theme</span>
+    </label>
+  </header>
+
+  <div class="mui-container">
+    <div class="mui-card">
+      <div class="flex-row gap-10">
+        <input type="text" id="todoInput" class="mui-input" placeholder="Add new task...">
+        <button class="mui-btn" id="addTodo">Add</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="mui-container">
+    <div class="mui-card">
+      <div class="filter-container">
+        <div>
+          <button class="filter-btn active" data-filter="all">All</button>
+          <button class="filter-btn" data-filter="active">Active</button>
+          <button class="filter-btn" data-filter="completed">Completed</button>
+        </div>
+        <button id="clearCompleted" class="mui-btn-small mui-btn-danger">Clear Completed</button>
+      </div>
+      
+      <div id="todoStats" class="flex-between">
+        <span id="todoCount">0 items left</span>
+      </div>
+      
+      <ul id="todoList" class="mui-list">
+        <!-- Todo items will be dynamically added here -->
+      </ul>
+      
+      <div id="emptyState" class="empty-state">
+        <p>No todos yet. Add one above!</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Todo app with a more maintainable architecture
+    
+    // Todo Model - manages data and business logic
+    class TodoModel {
+      constructor() {
+        this.todos = JSON.parse(localStorage.getItem('todos')) || [];
+        this.currentFilter = 'all';
+        this.onTodoListChanged = () => {};
+      }
+      
+      // Bind event handler from controller
+      bindTodoListChanged(callback) {
+        this.onTodoListChanged = callback;
+      }
+      
+      // Save to localStorage
+      _commit() {
+        localStorage.setItem('todos', JSON.stringify(this.todos));
+        this.onTodoListChanged(this.todos);
+      }
+      
+      // Add a new todo
+      addTodo(text) {
+        const todo = {
+          id: Date.now().toString(),
+          text,
+          completed: false,
+        };
+        
+        this.todos.push(todo);
+        this._commit();
+      }
+      
+      // Delete a todo by ID
+      deleteTodo(id) {
+        this.todos = this.todos.filter(todo => todo.id !== id);
+        this._commit();
+      }
+      
+      // Toggle completed status
+      toggleTodo(id) {
+        this.todos = this.todos.map(todo => 
+          todo.id === id ? {
+            ...todo,
+            completed: !todo.completed 
+          } : todo
+        );
+        this._commit();
+      }
+      
+      // Filter todos based on current filter
+      getFilteredTodos() {
+        switch(this.currentFilter) {
+          case 'active':
+            return this.todos.filter(todo => !todo.completed);
+          case 'completed':
+            return this.todos.filter(todo => todo.completed);
+          default:
+            return this.todos;
+        }
+      }
+      
+      // Set current filter
+      setFilter(filter) {
+        this.currentFilter = filter;
+        this.onTodoListChanged(this.todos);
+      }
+      
+      // Clear completed todos
+      clearCompleted() {
+        this.todos = this.todos.filter(todo => !todo.completed);
+        this._commit();
+      }
+    }
+    
+    // Todo View - handles the UI
+    class TodoView {
+      constructor() {
+        // App elements
+        this.app = document.querySelector('body');
+        this.todoList = document.getElementById('todoList');
+        this.todoInput = document.getElementById('todoInput');
+        this.addButton = document.getElementById('addTodo');
+        this.todoCount = document.getElementById('todoCount');
+        this.clearCompletedBtn = document.getElementById('clearCompleted');
+        this.filterButtons = document.querySelectorAll('.filter-btn');
+        this.emptyState = document.getElementById('emptyState');
+        
+        // Theme toggle
+        this.themeToggle = document.getElementById('themeToggle');
+        
+        // Event binding for theme toggle
+        this.themeToggle.addEventListener('change', () => {
+          document.documentElement.setAttribute(
+            'data-theme', 
+            this.themeToggle.checked ? 'dark' : 'light'
+          );
+          localStorage.setItem('theme', this.themeToggle.checked ? 'dark' : 'light');
+        });
+        
+        // Set theme based on localStorage or system preference
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+          document.documentElement.setAttribute('data-theme', savedTheme);
+          this.themeToggle.checked = savedTheme === 'dark';
+        } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          document.documentElement.setAttribute('data-theme', 'dark');
+          this.themeToggle.checked = true;
+        }
+      }
+      
+      // Create the todo list item element
+      createElement(todo) {
+        const li = document.createElement('li');
+        li.className = `mui-item flex-between ${todo.completed ? 'completed' : ''}`;
+        li.dataset.id = todo.id;
+        
+        const span = document.createElement('span');
+        span.textContent = todo.text;
+        if (todo.completed) span.classList.add('completed');
+        
+        const actionsDiv = document.createElement('div');
+        actionsDiv.className = 'todo-actions';
+        
+        const completeButton = document.createElement('button');
+        completeButton.textContent = todo.completed ? 'Undo' : 'Complete';
+        completeButton.className = `mui-btn-small ${todo.completed ? '' : 'mui-btn-primary'}`;
+        completeButton.dataset.action = 'toggle';
+        
+        const deleteButton = document.createElement('button');
+        deleteButton.textContent = 'Delete';
+        deleteButton.className = 'mui-btn-small mui-btn-danger';
+        deleteButton.dataset.action = 'delete';
+        
+        actionsDiv.appendChild(completeButton);
+        actionsDiv.appendChild(deleteButton);
+        
+        li.appendChild(span);
+        li.appendChild(actionsDiv);
+        
+        return li;
+      }
+      
+      // Display todos in the list
+      displayTodos(todos) {
+        // Clear list
+        this.todoList.innerHTML = '';
+        
+        if (todos.length === 0) {
+          this.emptyState.classList.remove('hidden');
+          this.todoList.classList.add('hidden');
+        } else {
+          this.emptyState.classList.add('hidden');
+          this.todoList.classList.remove('hidden');
+          
+          // Create todo items
+          todos.forEach(todo => {
+            this.todoList.appendChild(this.createElement(todo));
+          });
+        }
+        
+        // Update counter
+        const activeTodos = todos.filter(todo => !todo.completed).length;
+        this.todoCount.textContent = `${activeTodos} item${activeTodos !== 1 ? 's' : ''} left`;
+      }
+      
+      // Setup event listeners
+      bindAddTodo(handler) {
+        this.addButton.addEventListener('click', () => {
+          const text = this.todoInput.value.trim();
+          if (text) {
+            handler(text);
+            this.todoInput.value = '';
+          }
+        });
+        
+        this.todoInput.addEventListener('keydown', event => {
+          if (event.key === 'Enter' && this.todoInput.value.trim()) {
+            handler(this.todoInput.value.trim());
+            this.todoInput.value = '';
+          }
+        });
+      }
+      
+      bindDeleteTodo(handler) {
+        this.todoList.addEventListener('click', event => {
+          if (event.target.dataset.action === 'delete') {
+            const id = event.target.closest('li').dataset.id;
+            handler(id);
+          }
+        });
+      }
+      
+      bindToggleTodo(handler) {
+        this.todoList.addEventListener('click', event => {
+          if (event.target.dataset.action === 'toggle') {
+            const id = event.target.closest('li').dataset.id;
+            handler(id);
+          }
+        });
+      }
+      
+      bindFilterChange(handler) {
+        this.filterButtons.forEach(button => {
+          button.addEventListener('click', () => {
+            this.filterButtons.forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
+            handler(button.dataset.filter);
+          });
+        });
+      }
+      
+      bindClearCompleted(handler) {
+        this.clearCompletedBtn.addEventListener('click', handler);
+      }
+    }
+    
+    // Todo Controller - connects model and view
+    class TodoController {
+      constructor(model, view) {
+        this.model = model;
+        this.view = view;
+        
+        // Bind methods from model to view
+        this.model.bindTodoListChanged(this.onTodoListChanged.bind(this));
+        
+        // Bind methods from view to model
+        this.view.bindAddTodo(this.handleAddTodo.bind(this));
+        this.view.bindDeleteTodo(this.handleDeleteTodo.bind(this));
+        this.view.bindToggleTodo(this.handleToggleTodo.bind(this));
+        this.view.bindFilterChange(this.handleFilterChange.bind(this));
+        this.view.bindClearCompleted(this.handleClearCompleted.bind(this));
+        
+        // Initial render
+        this.onTodoListChanged(this.model.todos);
+      }
+      
+      // Display todos whenever the model changes
+      onTodoListChanged(todos) {
+        this.view.displayTodos(this.model.getFilteredTodos());
+      }
+      
+      // Handle adding a todo
+      handleAddTodo(text) {
+        this.model.addTodo(text);
+      }
+      
+      // Handle deleting a todo
+      handleDeleteTodo(id) {
+        this.model.deleteTodo(id);
+      }
+      
+      // Handle toggling a todo's completed status
+      handleToggleTodo(id) {
+        this.model.toggleTodo(id);
+      }
+      
+      // Handle filter change
+      handleFilterChange(filter) {
+        this.model.setFilter(filter);
+      }
+      
+      // Handle clearing completed todos
+      handleClearCompleted() {
+        this.model.clearCompleted();
+      }
+    }
+    
+    // Initialize the app
+    const app = new TodoController(new TodoModel(), new TodoView());
+  </script>
+</body>
+</html>

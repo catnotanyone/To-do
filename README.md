@@ -26,6 +26,7 @@ Both of Sonnet’s versions share the same localStorage, so your list will carry
 ### Current Deployed Version
 
 **Version 2 (Sonnet – No Classes)**
+**NOTE: Not deployed yet**
 
 ---
 
