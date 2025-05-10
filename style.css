@@ -98,7 +98,8 @@ nav {
 .mui-container {
     max-width: 800px;
     margin: 0 auto;
-    padding: 24px;
+    padding: 0px 24px 24px;
+    /* padding: 24px; */
     background: var(--mui-bg);
     /* transition: var(--mui-transition); */
 }

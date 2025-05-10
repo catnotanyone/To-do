@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light dark">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ToDo List</title>
+  <!-- <link rel="stylesheet" href="background.css"> -->
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="container">
+  <header class="mui-navbar">
+    <h1>ToDo List</h1>
+    <h2 style="margin-left: auto;">Version 0
+      <button class="mui-icon-btn" aria-label="Favorite">
+        <svg viewBox="0 0 24 24">
+          <path d="M12 21.35l-1.45-1.32C5.4 15.36 
+            2 12.28 2 8.5 2 5.42 4.42 3 7.5 
+            3c1.74 0 3.41 0.81 4.5 2.09C13.09 
+            3.81 14.76 3 16.5 3 19.58 3 22 
+            5.42 22 8.5c0 3.78-3.4 6.86-8.55 
+            11.54L12 21.35z" />
+        </svg>
+      </button>
+    </h2>
+    <nav>
+      <a href="index_v1.html" class="mui-btn-small">Sonnet's v1</a>
+      <a href="index.html" class="mui-btn-small">Sonnet's v2</a>
+    </nav>
+    <!-- Dark mode toggle -->
+    <label for="themeToggle" class="sr-only">Toggle Theme</label>
+    <label class="mui-switch">
+      <input type="checkbox" id="themeToggle">
+      <span class="mui-slider"></span>
+    </label>
+  </header>
+
+  <!-- Icon button -->
+  <!-- <button class="mui-icon-btn" aria-label="Favorite">
+    <svg viewBox="0 0 24 24">
+      <path d="M12 21.35l-1.45-1.32C5.4 15.36 
+        2 12.28 2 8.5 2 5.42 4.42 3 7.5 
+        3c1.74 0 3.41 0.81 4.5 2.09C13.09 
+        3.81 14.76 3 16.5 3 19.58 3 22 
+        5.42 22 8.5c0 3.78-3.4 6.86-8.55 
+        11.54L12 21.35z" />
+    </svg>
+  </button> -->
+
+  <!-- Doesn't work -->
+  <!-- <div class="mui-container">
+    <div class="mui-card">
+      <input type="search" name="Search" id="search" class="mui-input" placeholder="Search...">
+    </div>
+  </div> -->
+
+  <div class="mui-container">
+    <div class="mui-card">
+      <div class="flex-row gap-10">
+        <input type="text" name="addInput" id="todoInput" class="mui-input" placeholder="[ / ] Add new item...">
+        <button type="submit" class="mui-btn" id="addTodo">Add</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="todoListContainer" class="mui-container">
+    <div class="mui-card">
+      <ul id="todoList" class="mui-list">
+        <!-- Todo items will be dynamically added here -->
+      </ul>
+    </div>
+  </div>
+  <!-- Scripts -->
+  <script src="script.js"></script>
+</body>
+</html>

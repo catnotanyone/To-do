@@ -47,6 +47,35 @@
         transition: var(--mui-transition);
     }
 
+    /* Not Sonnet */
+    nav a {
+      display: inline-block;
+      padding: 6px 12px;
+      margin-left: 8px;
+      border-radius: 4px;
+      background-color: #007aff;
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 0.9rem;
+      transition: background-color 0.2s ease, transform 0.1s ease;
+    }
+
+    nav a:hover {
+      background-color: #005bb5;
+      transform: scale(1.05);
+    }
+
+    nav a:active {
+      background-color: #004999;
+      transform: scale(0.97);
+    }
+
+    nav {
+      margin-left: auto;
+      margin-right: 24px;
+    }
+
     /* 3. Components */
     .flex-between {
       display: flex;
@@ -299,6 +328,11 @@
 <body>
   <header class="mui-navbar">
     <h1>ToDo List</h1>
+    <h2 style="margin-left: auto;">Sonnet's V1</h2>
+      <nav>
+        <a href="index_v0.html" class="mui-btn-small">Version 0</a>
+        <a href="index.html" class="mui-btn-small">Sonnet's v2</a>
+      </nav>
     <!-- Dark mode toggle -->
     <label class="mui-switch">
       <input type="checkbox" id="themeToggle">

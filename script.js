@@ -47,12 +47,19 @@ themeToggle.addEventListener("change", () => {
     document.documentElement.setAttribute("data-theme", themeToggle.checked ? "dark" : "light");
 });
 
+document.addEventListener("keydown", (Event) => {
+    if (Event.key === "/" && !["INPUT", "TEXTAREA"].includes(document.activeElement.tagName)) {
+        Event.preventDefault();
+        todoInput.focus();
+    }
+});
+
 todoInput.addEventListener("keydown", (Event) => {
     if (Event.key === "Enter" && !Event.shiftKey && !Event.ctrlKey && !Event.altKey && !Event.metaKey && todoInput.value.trim()) {
         Event.preventDefault();
         addTodoButton.click();
     }
-})
+});
 
 addTodoButton.addEventListener("click", () => {
     const todoText = todoInput.value.trim();

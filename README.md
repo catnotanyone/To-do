@@ -15,9 +15,9 @@ Then I asked [Sonnet](https://www.anthropic.com/claude/sonnet) (AI bro) to help 
 Since I mentioned I don’t understand classes yet, he made a version without them.
 Here is a list of all versions:
 
-- **v0 (my crappy version)**: Plain JavaScript and functions. No edit button and no LocalStorage support (yet).
-- **v1 (Sonnet – Class-based)**: Uses classes + localStorage. No edit button yet.
-- **v2 (Sonnet – No Classes)**: Same layout and functionality as v1, but rewritten in plain JavaScript objects. Kinda easier for me to follow.
+- **v0 (my crappy version)**: `index_v0.html` Plain JavaScript and functions. No edit button and no LocalStorage support (yet).
+- **v1 (Sonnet – Class-based)**: `index_v1.html` Uses classes + localStorage. No edit button yet.
+- **v2 (Sonnet – No Classes)**: `index.html` Same layout and functionality as v1, but rewritten in plain JavaScript objects. Kinda easier for me to follow.
   
 Both of Sonnet’s versions share the same localStorage, so your list will carry over between them. My original version doesn’t use storage at all—reload the page, and the list is gone ...(*￣０￣)ノ
 
@@ -26,7 +26,6 @@ Both of Sonnet’s versions share the same localStorage, so your list will carry
 ### Current Deployed Version
 
 **Version 2 (Sonnet – No Classes)**
-**NOTE: Not deployed yet**
 
 ---
 
